@@ -1,6 +1,6 @@
 package org.example.config;
 
-import org.apache.commons.dbcp2.BasicDataSource;
+import com.zaxxer.hikari.HikariDataSource;
 import org.example.dao.EmployeeDao;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -8,7 +8,6 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import javax.sql.DataSource;
 
@@ -34,12 +33,12 @@ public class AppConfig {
 
     @Bean
     public DataSource dataSource() {
-        BasicDataSource ds = new BasicDataSource();
+        HikariDataSource ds = new HikariDataSource();
         ds.setDriverClassName(driver);
-        ds.setUrl(url);
+        ds.setJdbcUrl(url);
         ds.setUsername(username);
         ds.setPassword(password);
-        ds.setMaxTotal(maxConnections); // max 5 connections
+        ds.setMaximumPoolSize(maxConnections); // max 5 connections
         return ds;
     }
 

@@ -13,15 +13,15 @@ public class EmployeeDao {
     }
 
     public void createTable() {
-        jdbcTemplate.execute("CREATE TABLE employee1 (id INT PRIMARY KEY, name VARCHAR(50))");
+        jdbcTemplate.execute("CREATE TABLE employee2 (id INT PRIMARY KEY, name VARCHAR(50))");
     }
 
     public void insertEmployee(int id, String name) {
-        jdbcTemplate.update("INSERT INTO employee1 (id, name) VALUES (?, ?)", id, name);
+        jdbcTemplate.update("INSERT INTO employee2 (id, name) VALUES (?, ?)", id, name);
     }
 
     public List<Employee> getAllEmployees() {
-        return jdbcTemplate.query("SELECT * FROM employee1", (rs, rowNum) ->
+        return jdbcTemplate.query("SELECT * FROM employee2", (rs, rowNum) ->
                 new Employee(rs.getInt("id"), rs.getString("name")));
     }
 }
