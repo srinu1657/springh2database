@@ -1,5 +1,6 @@
 package org.example.config;
 
+import org.apache.commons.dbcp2.BasicDataSource;
 import org.example.dao.EmployeeDao;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -28,13 +29,17 @@ public class AppConfig {
     @Value("${db.password}")
     private String password;
 
+    @Value("${db.maxConnections}")
+    private int maxConnections;
+
     @Bean
     public DataSource dataSource() {
-        DriverManagerDataSource ds = new DriverManagerDataSource();
+        BasicDataSource ds = new BasicDataSource();
         ds.setDriverClassName(driver);
         ds.setUrl(url);
         ds.setUsername(username);
         ds.setPassword(password);
+        ds.setMaxTotal(maxConnections); // max 5 connections
         return ds;
     }
 
